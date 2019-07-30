@@ -52,3 +52,27 @@ function show_slider(){
         register_post_type('post_slider',$args);
     
 }
+
+
+//Add column
+
+function add_post_img_column($columns){
+    
+    $new = array();
+    foreach($columns as $key => $title){
+        
+        if($key == 'date'){
+        
+         $new['image']='Featured Image';
+        
+        }
+        
+        $new[$key] = $title;
+    }
+    
+    return $new;
+    
+    
+}
+
+add_filter('manage_post_slider_posts_columns','add_post_img_column');
