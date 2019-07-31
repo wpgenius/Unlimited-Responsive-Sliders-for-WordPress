@@ -76,3 +76,36 @@ function add_post_img_column($columns){
 }
 
 add_filter('manage_post_slider_posts_columns','add_post_img_column');
+
+//Add Meta Box
+add_action('add_meta_boxes','slider_custom_meta_box');
+function slider_custom_meta_box(){
+    
+    add_meta_box('slider_meta_id','slider Meta Box','post_slider_meta_box','post_slider','advanced','default');
+}
+
+
+
+function post_slider_meta_box($post){
+	
+	$values = get_post_meta($post_id,'name');
+?>
+	
+	<p>
+    <label for="name">Name :</label>
+    <input type="text" name="name" id="name" placeholder="enter name" value="<?php  echo $values;  ?>">
+	</p>
+	
+<?php
+	
+	
+}
+
+function post_slider_save_meta($post_id){
+	
+	$sname = sanitize_text_field($_POST['name']);
+	update_post_meta($post_id,'name',$sname); 
+	
+}
+
+add_action('save_post','post_slider_save_meta');
