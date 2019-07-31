@@ -77,6 +77,8 @@ function add_post_img_column($columns){
 
 add_filter('manage_post_slider_posts_columns','add_post_img_column');
 
+
+
 //Add Meta Box
 add_action('add_meta_boxes','slider_custom_meta_box');
 function slider_custom_meta_box(){
@@ -87,24 +89,27 @@ function slider_custom_meta_box(){
 
 
 function post_slider_meta_box($post){
+	global $post;
+	$values = get_post_meta($post_id,'name','upload_image');
 	
-	$values = get_post_meta($post_id,'name');
 ?>
 	
 	<p>
     <label for="name">Name :</label>
-    <input type="text" name="name" id="name" placeholder="enter name" value="<?php  echo $values;  ?>">
+    <input type="text" name="name" id="name" placeholder="enter name" value="<?php  echo $values['name'];  ?>"><br><br>
+	<label for="upload_image">Upload Image :</label>
+	<input type="file" name="upload_image" id="upload_image" value="<?php $values['upload_image']; ?>">
 	</p>
 	
 <?php
-	
 	
 }
 
 function post_slider_save_meta($post_id){
 	
 	$sname = sanitize_text_field($_POST['name']);
-	update_post_meta($post_id,'name',$sname); 
+	update_post_meta($post_id,'name',$sname);
+	update_post_meta($post_id,'upload_image',$_POST['upload_image']);
 	
 }
 
