@@ -106,7 +106,6 @@ function post_slider_meta_box($post){
 }
 
 function post_slider_save_meta($post_id){
-	
 	$sname = sanitize_text_field($_POST['name']);
 	update_post_meta($post_id,'name',$sname);
 	update_post_meta($post_id,'upload_image',$_POST['upload_image']);
